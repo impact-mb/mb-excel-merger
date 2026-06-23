@@ -1,28 +1,41 @@
-# Magic Bus Excel Merge Cleaner
+# MB Excel Merger
 
-Streamlit app to upload multiple Excel files, validate matching headers, remove Power BI footer/filter rows, merge data, and download a processed Excel file.
+Secure Streamlit app to validate, clean, and merge multiple Excel files.
 
-## Login
+## Login Users
 
-Default local login:
+| Region | Login ID | Password |
+|---|---|---|
+| North | north | North@2026 |
+| East | east | East@2026 |
+| West | west | West@2026 |
+| South | south | South@2026 |
 
-- Login ID: `admin`
-- Password: `MagicBus@2026`
-
-For deployment, change credentials in Streamlit Secrets:
-
-```toml
-APP_USERNAME = "your_login_id"
-APP_PASSWORD = "your_secure_password"
-```
-
-## Run locally
+## Run Locally
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Suggested GitHub repository name
+## Deploy on Streamlit Cloud
 
-`magicbus-excel-merge-cleaner`
+Add these values in Streamlit Cloud > App Settings > Secrets:
+
+```toml
+[users.north]
+password = "North@2026"
+region = "North"
+
+[users.east]
+password = "East@2026"
+region = "East"
+
+[users.west]
+password = "West@2026"
+region = "West"
+
+[users.south]
+password = "South@2026"
+region = "South"
+```
