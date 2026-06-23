@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).parent
 LOGO_PATH = BASE_DIR / "magicbus_logo.png"
 MAGIC_BUS_URL = "https://www.magicbus.org/"
 
-SUPPORTED_TYPES = ["csv", "xls"]
+SUPPORTED_TYPES = ["csv", "xls", "xlsx"]
 DROP_TEXTS = {"total", "applied filters:"}
 
 
@@ -87,15 +87,40 @@ def login_page():
 
 
 def read_file(uploaded_file):
+
     file_name = uploaded_file.name.lower()
 
     if file_name.endswith(".csv"):
-        return pd.read_csv(uploaded_file, dtype=str, keep_default_na=False)
 
-    if file_name.endswith(".xls"):
-        return pd.read_excel(uploaded_file, dtype=str, engine="xlrd", keep_default_na=False)
+        return pd.read_csv(
+            uploaded_file,
+            dtype=str,
+            keep_default_na=False
+        )
 
-    raise ValueError("Only .csv and .xls files are supported.")
+    elif file_name.endswith(".xls"):
+
+        return pd.read_excel(
+            uploaded_file,
+            dtype=str,
+            engine="xlrd",
+            keep_default_na=False
+        )
+
+    elif file_name.endswith(".xlsx"):
+
+        return pd.read_excel(
+            uploaded_file,
+            dtype=str,
+            engine="openpyxl",
+            keep_default_na=False
+        )
+
+    else:
+
+        raise ValueError(
+            "Only .csv, .xls and .xlsx files are supported."
+        )
 
 
 def normalize_headers(headers):
@@ -278,10 +303,10 @@ def main_app():
 
     excel_file = build_excel_output(merged_df, summary_df, region)
 
-    current_date = datetime.now().strftime("%d%m%Y")
+    current_date = datetime.now().strftime("%d-%m-%Y")
 
-    output_file_name = f"MB_Excel_Merged_{region}_{current_date}.xlsx"
-
+    output_file_name = (f"MB_Excel_Merged_{region}_{current_date}.xlsx")
+    
     st.success("Files merged successfully.")
 
     st.subheader("Processing Summary")
