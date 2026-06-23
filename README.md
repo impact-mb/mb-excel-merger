@@ -1,26 +1,34 @@
 # MB Excel Merger
 
-Secure Streamlit app to validate, clean, and merge multiple Excel files.
+Secure Streamlit application to validate, clean, and merge multiple `.csv` or `.xls` files.
 
-## Login Users
+## Why this app
 
-| Region | Login ID | Password |
-|---|---|---|
-| North | north | North@2026 |
-| East | east | East@2026 |
-| West | west | West@2026 |
-| South | south | South@2026 |
+- Standardizes the data merge process across regions.
+- Reduces manual Excel copy-paste work.
+- Checks that all uploaded files have matching headers before merging.
+- Removes unwanted Power BI footer/filter rows such as `Total` and `Applied filters:`.
+- Creates a clean Excel output with file-wise processing summary.
 
-## Run Locally
+## Supported input files
+
+Only these formats are supported:
+
+- `.csv`
+- `.xls`
+
+The final processed output is downloaded as `.xlsx`.
+
+## Run locally
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Deploy on Streamlit Cloud
+## Streamlit Cloud secrets
 
-Add these values in Streamlit Cloud > App Settings > Secrets:
+Add credentials in Streamlit Cloud > App Settings > Secrets.
 
 ```toml
 [users.north]
@@ -38,4 +46,16 @@ region = "West"
 [users.south]
 password = "South@2026"
 region = "South"
+```
+
+## File structure
+
+```text
+MB Excel Merger/
+├── app.py
+├── magicbus_logo.png
+├── requirements.txt
+├── README.md
+└── .streamlit/
+    └── secrets.toml.example
 ```
